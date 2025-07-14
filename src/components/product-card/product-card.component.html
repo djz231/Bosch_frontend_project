@@ -1,0 +1,21 @@
+<div [class]="viewMode === 'grid' ? 'card-grid' : 'card-list'">
+  <div class="image-container">
+    <img [src]="'/assets/' + product.images[0]" 
+         [alt]="product.name"
+         (error)="handleImageError($event)">
+  </div>
+  <div class="product-info">
+    <h3>{{ product.name }}</h3>
+    <p class="price">{{ product.price | currency }}</p>
+    <p class="description">{{ product.shortDescription }}</p>
+    
+    <div class="add-to-cart">
+      <input type="number" 
+             [(ngModel)]="quantity" 
+             min="1" 
+             class="quantity-input"
+             (keydown)="preventNegative($event)">
+      <button (click)="onAddToCart()" class="add-button">Add to Cart</button>
+    </div>
+  </div>
+</div>

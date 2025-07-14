@@ -1,0 +1,76 @@
+<div class="product-list-container">
+  <div class="controls">
+    <div class="search-container">
+      <input type="text" [(ngModel)]="searchTerm" 
+             (ngModelChange)="onSearchChange()" 
+             placeholder="Search products...">
+      <button *ngIf="searchTerm" (click)="searchTerm = ''; onSearchChange()" class="clear-search">
+        Clear
+      </button>
+    </div>
+
+    <div class="view-controls">
+      <select [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+        <option value="name-asc">Name (A-Z)</option>
+        <option value="name-desc">Name (Z-A)</option>
+        <option value="price-asc">Price (Low to High)</option>
+        <option value="price-desc">Price (High to Low)</option>
+      </select>
+
+      <div class="view-toggle">
+        <button (click)="viewMode = 'grid'" [class.active]="viewMode === 'grid'">
+          Grid
+        </button>
+        <button (click)="viewMode = 'list'" [class.active]="viewMode === 'list'">
+          List
+        </button>
+      </div>
+
+      <select [(ngModel)]="itemsPerPage" (ngModelChange)="changeItemsPerPage()">
+        <option value="5">5 per page</option>
+        <option value="10">10 per page</option>
+        <option value="15">15 per page</option>
+        <option value="20">20 per page</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading products...
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div class="results-count">
+      Showing {{ paginatedProducts.length }} of {{ filteredProducts.length }} products
+      <span *ngIf="searchTerm">for "{{ searchTerm }}"</span>
+    </div>
+
+    <div *ngIf="filteredProducts.length === 0" class="no-results">
+      No products found. Try a different search term.
+    </div>
+
+    <div [class]="viewMode === 'grid' ? 'products-grid' : 'products-list'">
+      <app-product-card 
+        *ngFor="let product of paginatedProducts | sortProducts:sortBy" 
+        [product]="product"
+        [viewMode]="viewMode"
+        (addToCart)="addToCart($event.product, $event.quantity)">
+      </app-product-card>
+    </div>
+
+    <div *ngIf="totalPages > 1" class="pagination">
+      <button (click)="changePage(1)" [disabled]="currentPage === 1">First</button>
+      <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+      
+      <span *ngFor="let page of getPageNumbers()" 
+            (click)="changePage(page)"
+            [class.active]="page === currentPage"
+            class="page-number">
+        {{ page }}
+      </span>
+      
+      <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+      <button (click)="changePage(totalPages)" [disabled]="currentPage === totalPages">Last</button>
+    </div>
+  </div>
+</div>

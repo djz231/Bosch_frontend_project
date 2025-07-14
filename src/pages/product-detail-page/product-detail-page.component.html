@@ -1,0 +1,69 @@
+<div class="product-detail-container">
+  <div *ngIf="isLoading" class="loading">
+    Loading product details...
+  </div>
+
+  <div *ngIf="!isLoading && product" class="product-detail">
+    <nav class="breadcrumb">
+      <a routerLink="/">Products</a>
+      <span>></span>
+      <span>{{ product.name }}</span>
+    </nav>
+
+    <div class="product-content">
+      <div class="gallery">
+        <div class="main-image">
+          <img [src]="product.images[currentImageIndex]" 
+               [alt]="product.name"
+               (error)="handleImageError($event)"
+               class="product-main-image">
+        </div>
+        <div class="thumbnail-container">
+          <div *ngFor="let image of product.images; let i = index" 
+               class="thumbnail" 
+               [class.active]="i === currentImageIndex"
+               (click)="changeImage(i)">
+            <img [src]="image" 
+                 [alt]="product.name + ' thumbnail ' + (i + 1)"
+                 (error)="handleImageError($event)">
+          </div>
+        </div>
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+        
+        <div class="add-to-cart">
+          <input type="number" 
+                 [(ngModel)]="quantity" 
+                 min="1" 
+                 class="quantity-input"
+                 (keydown)="preventNegative($event)">
+          <button (click)="addToCart()" class="add-button">Add to Cart</button>
+        </div>
+
+        <div class="description-section">
+          <h3>Description</h3>
+          <p>{{ product.fullDescription }}</p>
+        </div>
+
+        <div class="specs-section">
+          <h3>Technical Specifications</h3>
+          <table>
+            <tr *ngFor="let spec of getSpecsArray(product.technicalSpecifications)">
+              <th>{{ spec.key }}</th>
+              <td>{{ spec.value }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !product" class="not-found">
+    <h2>Product not found</h2>
+    <p>The product you're looking for doesn't exist or has been removed.</p>
+    <a routerLink="/" class="back-link">Back to products</a>
+  </div>
+</div>
