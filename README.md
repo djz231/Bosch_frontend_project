@@ -17,7 +17,7 @@ A responsive e-commerce frontend application built with Angular CLI 18.2.5 that 
 ### Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/Bosch_frontend_project.git
+git clone https://github.com/djz231/Bosch_frontend_project.git
 cd Bosch_frontend_project
 Install dependencies:
 
