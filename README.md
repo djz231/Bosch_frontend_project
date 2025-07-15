@@ -1,27 +1,75 @@
-# App
+Mini E-commerce Frontend (Angular)
+Project Overview
+A responsive e-commerce frontend application built with Angular CLI 18.2.5 that allows users to:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
+Browse products in grid/list views
 
-## Development server
+View detailed product information
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Search and sort products
 
-## Code scaffolding
+Manage a persistent shopping cart
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Development Setup
+Prerequisites
+Node.js (v18+ recommended)
 
-## Build
+Angular CLI (npm install -g @angular/cli)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Installation
+Clone the repository:
 
-## Running unit tests
+bash
+git clone [repository-url]
+cd project-directory
+Install dependencies:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+bash
+npm install
+Development Server
+Run:
 
-## Running end-to-end tests
+bash
+ng serve
+Navigate to http://localhost:4200/. The app will automatically reload on changes.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Project Structure
+text
+src/
+├── app/
+│   ├── components/       # Reusable UI components
+│   ├── models/           # TypeScript interfaces
+│   ├── pages/            # Main views
+│   ├── pipes/            # Custom pipes
+│   ├── services/         # Business logic
+│   ├── app.component.ts  # Root component
+│   └── routes.ts         # Routing configuration
+├── assets/
+│   ├── images/           # Product images
+│   └── products.json     # Mock product data
+Key Features
+Product Catalog
 
-## Further help
+Grid/List view toggle
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Search with 300ms debounce
+
+Sorting (price high-low, name A-Z)
+
+Pagination (5-20 items per page)
+
+Shopping Cart
+
+Add/remove items
+
+Quantity adjustment
+
+localStorage persistence
+
+Real-time total calculation
+
+Responsive Design
+
+Mobile-first approach
+
+Adaptive layouts for all screen sizes
